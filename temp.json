@@ -28,7 +28,7 @@
     "checkContact": false,
     "checkPost": false,
     "checkSticker": false,
-    "detectMention": true,
+    "detectMention": false,
     "getReader": {},
     "keyCommand": ".",
     "leaveMessage": false,
