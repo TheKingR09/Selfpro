@@ -1024,7 +1024,7 @@ async def clientBot(op):
                 client.sendMessage(op.param1, "Goblok ngapain invite gw")
                 client.leaveRoom(op.param1)
 
-        if op.type in [25, 26]:
+        if op.type == 25 or op.type == 26:
             if op.type == 25: print ("[ 25 ] SEND MESSAGE")
             else: print ("[ 26 ] RECEIVE MESSAGE")
             msg = op.message
@@ -1200,25 +1200,25 @@ async def clientBot(op):
                         if cmd == "logoutz" and sender == clientMID:
                             client.sendMessage(to, "Thanks For Using This Selfbot!\nby Ferians24")
                             sys.exit("Logout")
-                        if cmd == "help":
+                        if cmd == "help" and sender == clientMID:
                             helpMessage = myhelp()
                             client.sendReplyMessage(msg_id, to, str(helpMessage))
-                        if cmd == "protect":
+                        if cmd == "protect" and sender == clientMID:
                             helpProtect = helpprotect()
                             client.sendReplyMessage(msg_id, to, str(helpProtect))
-                        if cmd == "settings":
+                        if cmd == "settings" and sender == clientMID:
                             helpSettings = helpsettings()
                             client.sendReplyMessage(msg_id, to, str(helpSettings))
-                        if cmd == "myself":
+                        if cmd == "myself" and sender == clientMID:
                             mySelf = myself()
                             client.sendReplyMessage(msg_id, to, str(mySelf))
-                        if cmd == "media":
+                        if cmd == "media" and sender == clientMID:
                             myMedia = mymedia()
                             client.sendReplyMessage(msg_id, to, str(myMedia))
-                        if cmd == "group":
+                        if cmd == "group" and sender == clientMID:
                             myInfo = myinfo()
                             client.sendReplyMessage(msg_id, to, str(myInfo))
-                        if cmd == "translate":
+                        if cmd == "translate" and sender == clientMID:
                             ret_ = "[ Help Translate ]"
                             ret_ += "\nHow to use ?"
                             ret_ += "\nUse command :\n{}tr *lang* *text*".format(setKey)
@@ -1227,7 +1227,7 @@ async def clientBot(op):
                             ret_ += "\n\nHow to find language?"
                             ret_ += "\nUse command :\n{}tr language".format(setKey)
                             client.sendReplyMessage(msg_id, to, str(ret_))
-                        if cmd == "textspeech":
+                        if cmd == "textspeech" and sender == clientMID:
                             ret_ = "[ Help Text To Speech ]"
                             ret_ += "\nHow to use ?"
                             ret_ += "\nUse command :\n{}say *lang* *text*".format(setKey)
@@ -1236,7 +1236,7 @@ async def clientBot(op):
                             ret_ += "\n\nHow to find language?"
                             ret_ += "\nUse command :\n{}say language".format(setKey)
                             client.sendReplyMessage(msg_id, to, str(ret_))
-                        if cmd == "memegen":
+                        if cmd == "memegen" and sender == clientMID:
                             ret_ = "[ Help MemeGen ]"
                             ret_ += "\nHow to use ?"
                             ret_ += "\nUse command :\n{}creatememe *text*|*text*|*template*".format(setKey)
@@ -1249,12 +1249,12 @@ async def clientBot(op):
                             key = removeCmd("changekey:", text)
                             settings["keyCommand"] = str(key).lower()
                             client.sendMessage(to, "Changed to : [{}]".format(str(key).lower()))
-                        elif cmd == "speed":
+                        elif cmd == "speed" and sender == clientMID:
                             start = time.time()
                             client.sendMessage(to, "Menghitung kecepatan...")
                             elapsed_time = time.time() - start
                             client.sendMessage(to, "[ Speed ]\nKecepatan mengirim pesan {} detik".format(str(elapsed_time)))
-                        elif cmd == "speedtest":
+                        elif cmd == "speedtest" and sender == clientMID:
                             start = time.time()
                             client.sendMessage(to, "Start speedtest...")
                             speed = time.time() - start
@@ -1270,12 +1270,12 @@ async def clientBot(op):
                             except: pass
                             settings["restartPoint"] = to
                             restartBot()
-                        elif cmd == "runtime":
+                        elif cmd == "runtime" and sender == clientMID:
                             timeNow = time.time()
                             runtime = timeNow - botStart
                             runtime = format_timespan(runtime)
                             client.sendMessage(to, "Bot already running on {}".format(str(runtime)))
-                        elif cmd == "respon":
+                        elif cmd == "respon" and sender == clientMID:
                                 client.sendMessage(msg.to,responsename4)
                                 feri24.sendMessage(msg.to,responsename1)
 #--------------- ** Protect Command ** ---------------#
@@ -1399,7 +1399,7 @@ async def clientBot(op):
                                          msgs = "Already Off All Protection\nIn Groups : " +str(ginfo.name)
                                     client.sendMessage(msg.to, "「Nonactived」\n" + msgs)
 
-                        elif cmd == "fer join":
+                        elif cmd == "fer join" and sender == clientMID:
                                 G = client.getGroup(msg.to)
                                 ginfo = client.getGroup(msg.to)
                                 G.preventedJoinByTicket = False
@@ -1411,11 +1411,11 @@ async def clientBot(op):
                                 G.preventedJoinByTicket = True
                                 feri24.updateGroup(G)
 
-                        elif cmd == "fer bye":
+                        elif cmd == "fer bye" and sender == clientMID:
                                 G = client.getGroup(msg.to)
                                 feri24.leaveGroup(msg.to)
 
-                        elif cmd == "listprotect":
+                        elif cmd == "listprotect" and sender == clientMID:
                                 ma = ""
                                 mb = ""
                                 mc = ""
@@ -1447,7 +1447,7 @@ async def clientBot(op):
                                 client.sendMessage(msg.to,"List Protect\n\n1.) PROTECT URL :\n"+ma+"\n2.) PROTECT KICK :\n"+mb+"\n3.) PROTECT CANCEL:\n"+mc+"\n4.) PROTECT INVITE :\n"+me+"\nTotal 「%s」 Protect Active" %(str(len(protectqr)+len(protectkick)+len(protectjoin)+len(protectcancel)+len(protectinvite))))
 
 #--------------- ** Add Admin,Staff,etc ** ---------------#
-                        elif cmd.startswith("adminadd "):
+                        elif cmd.startswith("adminadd ") and sender == clientMID:
                                key = eval(msg.contentMetadata["MENTION"])
                                key["MENTIONEES"][0]["M"]
                                targets = []
@@ -1462,7 +1462,7 @@ async def clientBot(op):
                                        except:
                                            pass
 
-                        elif cmd.startswith("staffadd "):
+                        elif cmd.startswith("staffadd ") and sender == clientMID:
                                key = eval(msg.contentMetadata["MENTION"])
                                key["MENTIONEES"][0]["M"]
                                targets = []
@@ -1475,7 +1475,7 @@ async def clientBot(op):
                                        except:
                                            pass
 
-                        elif cmd.startswith("admindel "):
+                        elif cmd.startswith("admindel ") and sender == clientMID:
                                key = eval(msg.contentMetadata["MENTION"])
                                key["MENTIONEES"][0]["M"]
                                targets = []
@@ -1491,7 +1491,7 @@ async def clientBot(op):
                                        except:
                                            pass
 
-                        elif cmd.startswith("staffdel "):
+                        elif cmd.startswith("staffdel ") and sender == clientMID:
                                key = eval(msg.contentMetadata["MENTION"])
                                key["MENTIONEES"][0]["M"]
                                targets = []
@@ -1505,35 +1505,35 @@ async def clientBot(op):
                                        except:
                                            pass
 
-                        elif cmd == "admin:on" or text.lower() == 'admin:on':
+                        elif cmd == "admin:on" or text.lower() == 'admin:on' and sender == clientMID:
                                 wait["addadmin"] = True
                                 client.sendMessage(msg.to,"Send kontaknya")
 
-                        elif cmd == "admin:repeat" or text.lower() == 'admin:repeat':
+                        elif cmd == "admin:repeat" or text.lower() == 'admin:repeat' and sender == clientMID:
                                 wait["delladmin"] = True
                                 client.sendMessage(msg.to,"Send kontaknya")
 
-                        elif cmd == "staff:on" or text.lower() == 'staff:on':
+                        elif cmd == "staff:on" or text.lower() == 'staff:on' and sender == clientMID:
                                 wait["addstaff"] = True
                                 client.sendMessage(msg.to,"Send kontaknya")
 
-                        elif cmd == "staff:repeat" or text.lower() == 'staff:repeat':
+                        elif cmd == "staff:repeat" or text.lower() == 'staff:repeat' and sender == clientMID:
                                 wait["dellstaff"] = True
                                 client.sendMessage(msg.to,"Send kontaknya")
 
-                        elif cmd == "contact admin" or text.lower() == 'contact admin':
+                        elif cmd == "contact admin" or text.lower() == 'contact admin' and sender == clientMID:
                                 ma = ""
                                 for i in admin:
                                     ma = client.getContact(i)
                                     client.sendMessage(msg.to, None, contentMetadata={'mid': i}, contentType=13)
 
-                        elif cmd == "contact staff" or text.lower() == 'contact staff':
+                        elif cmd == "contact staff" or text.lower() == 'contact staff' and sender == clientMID:
                                 ma = ""
                                 for i in staff:
                                     ma = client.getContact(i)
                                     client.sendMessage(msg.to, None, contentMetadata={'mid': i}, contentType=13)
 #--------------- ** Log Error ** ---------------#
-                        elif cmd.startswith("ban "):
+                        elif cmd.startswith("ban ") and sender == clientMID:
                                key = eval(msg.contentMetadata["MENTION"])
                                key["MENTIONEES"][0]["M"]
                                targets = []
@@ -1546,7 +1546,7 @@ async def clientBot(op):
                                        except:
                                            pass
 
-                        elif cmd.startswith("unban "):
+                        elif cmd.startswith("unban ") and sender == clientMID:
                                key = eval(msg.contentMetadata["MENTION"])
                                key["MENTIONEES"][0]["M"]
                                targets = []
@@ -1559,15 +1559,15 @@ async def clientBot(op):
                                        except:
                                            pass
 
-                        elif cmd == "ban:on" or text.lower() == 'ban:on':
+                        elif cmd == "ban:on" or text.lower() == 'ban:on' and sender == clientMID:
                                 wait["wblacklist"] = True
                                 client.sendMessage(msg.to,"Send kontaknya")
 
-                        elif cmd == "unban:on" or text.lower() == 'unban:on':
+                        elif cmd == "unban:on" or text.lower() == 'unban:on' and sender == clientMID:
                                 wait["dblacklist"] = True
                                 client.sendMessage(msg.to,"Send kontaknya")
 
-                        elif cmd == "banlist" or text.lower() == 'banlist':
+                        elif cmd == "banlist" or text.lower() == 'banlist' and sender == clientMID:
                               if wait["blacklist"] == {}:
                                 client.sendMessage(msg.to,"Tidak ada blacklist")
                               else:
@@ -1579,7 +1579,7 @@ async def clientBot(op):
                                     ma += str(a) + ". " +client.getContact(m_id).displayName + "\n"
                                 client.sendMessage(msg.to,"Blacklist User\n\n"+ma+"\nTotal 「%s」 Blacklist User" %(str(len(wait["blacklist"]))))
 
-                        elif cmd == "blc" or text.lower() == 'blc':
+                        elif cmd == "blc" or text.lower() == 'blc' and sender == clientMID:
                               if wait["blacklist"] == {}:
                                     client.sendMessage(msg.to,"Tidak ada blacklist")
                               else:
@@ -1588,17 +1588,17 @@ async def clientBot(op):
                                         ma = client.getContact(i)
                                         client.sendMessage(msg.to, None, contentMetadata={'mid': i}, contentType=13)
 
-                        elif cmd == "clearban" or text.lower() == 'clearban':
+                        elif cmd == "clearban" or text.lower() == 'clearban' and sender == clientMID:
                               wait["blacklist"] = {}
                               ragets = client.getContacts(wait["blacklist"])
                               mc = "[%i]User Blacklist" % len(ragets)
                               client.sendMessage(msg.to,"Blacklist Cleared " +mc)
 #--------------- ** Log Error ** ---------------#
-                        elif cmd == "errorlog":
+                        elif cmd == "errorlog" and sender == clientMID:
                             with open('errorLog.txt', 'r') as fp:
                                 isi = fp.read()
                             client.sendMessage(to, str(isi))
-                        elif cmd == "resetlogerror":
+                        elif cmd == "resetlogerror" and sender == clientMID:
                            with open("errorLog.txt","w") as fp:
                                fp.write("")
                            client.sendMessage(to,"Berhasil reset log error")
@@ -1614,20 +1614,20 @@ async def clientBot(op):
                                    client.kickoutFromGroup(to,[target])
                                except Exception as e:
                                    client.sendMessage(to, str(e))
-                        elif cmd.startswith("mentionmid "):
+                        elif cmd.startswith("mentionmid ") and sender == clientMID:
                             contact = removeCmd("mentionmid", text)
                             sendMention(to, contact)
-                        elif cmd == "mentioncontact":
+                        elif cmd == "mentioncontact" and sender == clientMID:
                             if msg.toType == 0:
                                 sendMention(to, to)
                                 client.sendContact(to, to)
 #--------------- ** Self Command ** ---------------#
-                        elif cmd == "me":
+                        elif cmd == "me" and sender == clientMID:
                             client.sendContact(to, sender)
-                        elif cmd == "mymid":
+                        elif cmd == "mymid" and sender == clientMID:
                             h = client.getContact(clientMID)
                             client.sendMessage(msg.to,"[ Mid User ]\n" + h.mid)
-                        elif cmd == "myprofile":
+                        elif cmd == "myprofile" and sender == clientMID:
                             contact = client.getContact(clientMID)
                             cu = client.getProfileCoverURL(clientMID)
                             path = str(cu)
@@ -1635,40 +1635,40 @@ async def clientBot(op):
                             client.sendMessage(msg.to,"Nama :\n" + contact.displayName + "\n\nBio :\n" + contact.statusMessage)
                             client.sendImageWithURL(msg.to,image)
                             client.sendImageWithURL(msg.to,path)
-                        elif cmd == "myname":
+                        elif cmd == "myname" and sender == clientMID:
                             h = client.getContact(clientMID)
                             client.sendMessage(msg.to, h.displayName)
-                        elif cmd == "mybio":
+                        elif cmd == "mybio" and sender == clientMID:
                             h = client.getContact(clientMID)
                             client.sendMessage(msg.to, h.statusMessage)
-                        elif cmd == "mypicture":
+                        elif cmd == "mypicture" and sender == clientMID:
                             h = client.getContact(clientMID)
                             client.sendImageWithURL(msg.to,"http://dl.profile.line-cdn.net/" + h.pictureStatus)
-                        elif cmd == "myvideo":
+                        elif cmd == "myvideo" and sender == clientMID:
                             h = client.getContact(clientMID)
                             if h.videoProfile == None:
                             	return client.sendMessage(to, "Anda tidak memiliki video profile")
                             client.sendVideoWithURL(msg.to,"http://dl.profile.line-cdn.net/" + h.pictureStatus + "/vp")
-                        elif cmd == "mycover":
+                        elif cmd == "mycover" and sender == clientMID:
                             h = client.getContact(clientMID)
                             cu = client.getProfileCoverURL(clientMID)
                             path = str(cu)
                             client.sendImageWithURL(msg.to, path)
-                        elif cmd.startswith("changename: "):
+                        elif cmd.startswith("changename: ") and sender == clientMID:
                             string = removeCmd("changename:", text)
                             if len(string) <= 10000000000:
                                 profile = client.getProfile()
                                 profile.displayName = string
                                 client.updateProfile(profile)
                                 client.sendMessage(to,"Changed " + string + "")
-                        elif cmd.startswith("changebio: "):
+                        elif cmd.startswith("changebio: ") and sender == clientMID:
                             string = removeCmd("changebio:", text)
                             if len(string) <= 10000000000:
                                 profile = client.getProfile()
                                 profile.statusMessage = string
                                 client.updateProfile(profile)
                                 client.sendMessage(msg.to,"Changed " + string)
-                        elif cmd.startswith("locate "):
+                        elif cmd.startswith("locate ") and sender == clientMID:
                             if 'MENTION' in msg.contentMetadata.keys() != None:
                                 names = re.findall(r'@(\w+)', text)
                                 mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -1692,7 +1692,7 @@ async def clientBot(op):
                                 if ngroup == "":
                                     client.sendMessage(to, "NOT FOUND")
 #--------------- ** Get Command ** ---------------#
-                        elif cmd.startswith("getmid "):
+                        elif cmd.startswith("getmid ") and sender == clientMID:
                             if 'MENTION' in msg.contentMetadata.keys()!= None:
                                 names = re.findall(r'@(\w+)', text)
                                 mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -1705,7 +1705,7 @@ async def clientBot(op):
                                 for ls in lists:
                                     ret_ += "\n{}".format(str(ls))
                                 client.sendMessage(to, str(ret_))
-                        elif cmd.startswith("getpicture "):
+                        elif cmd.startswith("getpicture ") and sender == clientMID:
                             if 'MENTION' in msg.contentMetadata.keys()!= None:
                                 names = re.findall(r'@(\w+)', text)
                                 mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -1717,7 +1717,7 @@ async def clientBot(op):
                                 for ls in lists:
                                     path = "http://dl.profile.line.naver.jp/" + client.getContact(ls).pictureStatus
                                     client.sendImageWithURL(to, str(path))
-                        elif cmd.startswith("getvideo "):
+                        elif cmd.startswith("getvideo ") and sender == clientMID:
                             if 'MENTION' in msg.contentMetadata.keys()!= None:
                                 names = re.findall(r'@(\w+)', text)
                                 mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -1732,7 +1732,7 @@ async def clientBot(op):
                                     	continue
                                     path = "http://dl.profile.line-cdn.net/" + contact.pictureStatus + "/vp"
                                     client.sendVideoWithURL(to, str(path))
-                        elif cmd.startswith("getcover "):
+                        elif cmd.startswith("getcover ") and sender == clientMID:
                             if client != None:
                                 if 'MENTION' in msg.contentMetadata.keys()!= None:
                                     names = re.findall(r'@(\w+)', text)
@@ -1746,7 +1746,7 @@ async def clientBot(op):
                                         path = client.getProfileCoverURL(ls)
                                         path = str(path)
                                         client.sendImageWithURL(to, str(path))
-                        elif cmd.startswith("getname "):
+                        elif cmd.startswith("getname ") and sender == clientMID:
                             if 'MENTION' in msg.contentMetadata.keys()!= None:
                                 names = re.findall(r'@(\w+)', text)
                                 mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -1758,7 +1758,7 @@ async def clientBot(op):
                                 for ls in lists:
                                     contact = client.getContact(ls)
                                     client.sendMessage(to, "[ Display Name ]\n{}".format(str(contact.displayName)))
-                        elif cmd.startswith("getbio "):
+                        elif cmd.startswith("getbio ") and sender == clientMID:
                             if 'MENTION' in msg.contentMetadata.keys()!= None:
                                 names = re.findall(r'@(\w+)', text)
                                 mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -1770,7 +1770,7 @@ async def clientBot(op):
                                 for ls in lists:
                                     contact = client.getContact(ls)
                                     client.sendMessage(to, "[ Status Message ]\n{}".format(str(contact.statusMessage)))
-                        elif cmd.startswith("getprofile "):
+                        elif cmd.startswith("getprofile ") and sender == clientMID:
                             if 'MENTION' in msg.contentMetadata.keys()!= None:
                                 names = re.findall(r'@(\w+)', text)
                                 mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -1787,7 +1787,7 @@ async def clientBot(op):
                                     client.sendMessage(msg.to,"Nama :\n" + contact.displayName + "\nMid :\n" + contact.mid + "\n\nBio :\n" + contact.statusMessage)
                                     client.sendImageWithURL(msg.to,image)
                                     client.sendImageWithURL(msg.to,path)
-                        elif cmd.startswith("getcontact "):
+                        elif cmd.startswith("getcontact ") and sender == clientMID:
                             if 'MENTION' in msg.contentMetadata.keys()!= None:
                                 names = re.findall(r'@(\w+)', text)
                                 mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -1800,7 +1800,7 @@ async def clientBot(op):
                                     contact = client.getContact(ls)
                                     mi_d = contact.mid
                                     client.sendContact(to, mi_d)
-                        elif cmd.startswith("midgetcontact "):
+                        elif cmd.startswith("midgetcontact ") and sender == clientMID:
                             mid = removeCmd("midgetcontact", text)
                             if mid is not None:
                                 listMid = mid.split("*")
@@ -1877,7 +1877,7 @@ async def clientBot(op):
                                 except:
                                     client.sendMessage(msg.to,"Deleted Target Fail !")
                                     break
-                        elif cmd == "mimiclist":
+                        elif cmd == "mimiclist" and sender == clientMID:
                             if settings["mimic"]["target"] == {}:
                                 client.sendMessage(msg.to,"Tidak Ada Target")
                             else:
@@ -1896,7 +1896,7 @@ async def clientBot(op):
                                     settings["mimic"]["status"] = False
                                     client.sendMessage(msg.to,"Berhasil menonaktifkan mimic")
 #--------------- ** Media Command ** ---------------#
-                        elif cmd.startswith("youtubeinfo "):
+                        elif cmd.startswith("youtubeinfo ") and sender == clientMID:
                             url = removeCmd("youtubeinfo", text)
                             params = {"vid": url}
                             with _session as web:
@@ -1918,17 +1918,17 @@ async def clientBot(op):
                                     client.sendMessage(to, str(ret_))
                                 except:
                                     client.sendMessage(to, "URL tidak valid")
-                        elif cmd.startswith("youtubemp3 "):
+                        elif cmd.startswith("youtubemp3 ") and sender == clientMID:
                             link = removeCmd("youtubemp3", text)
                             r = _session.get('http://api.corrykalam.net/apiytmp3.php?link='+link)
                             data = r.text
                             client.sendAudioWithURL(to,str(data))
-                        elif cmd.startswith("youtubemp4 "):
+                        elif cmd.startswith("youtubemp4 ") and sender == clientMID:
                             link = removeCmd("youtubemp4", text)
                             r = _session.get('http://api.corrykalam.net/apimp4.php?link='+link)
                             data = r.text
                             client.sendVideoWithURL(to,str(data))
-                        elif cmd.startswith("youtubedownload "):
+                        elif cmd.startswith("youtubedownload ") and sender == clientMID:
                             url = removeCmd("youtubedownload", text)
                             params = {"url": url}
                             with _session as web:
@@ -1971,7 +1971,7 @@ async def clientBot(op):
                                     ret_ += "\n╠ https://www.youtube.com{}".format(str(data["href"]))
                                 ret_ += "\n╚══[ Total {} ]".format(len(datas))
                                 client.sendMessage(to, str(ret_))
-                        elif cmd.startswith("wikipedia "):
+                        elif cmd.startswith("wikipedia ") and sender == clientMID:
                             search = removeCmd("wikipedia", text)
                             wiki = WikiApi({'locale':'id'})
                             results = wiki.find(search)
@@ -2061,7 +2061,7 @@ async def clientBot(op):
                                     client.sendMessage(to, ret_)
                                 else:
                                     client.sendMessage(to,"Sorry, index out of range")
-                        elif cmd.startswith("imagesearch "):
+                        elif cmd.startswith("imagesearch ") and sender == clientMID:
                             start = time.time()
                             search = removeCmd("imagesearch", text)
                             url = "https://xeonwz.herokuapp.com/images/google.api?q=" + urllib.parse.quote(search)
@@ -2078,7 +2078,7 @@ async def clientBot(op):
                                     client.sendImageWithURL(to, str(path))
                                     elapsed_time = time.time() - start
                                     client.sendMessage(to,"[Image Result]\nGot image in %s seconds" %(elapsed_time))
-                        elif cmd.startswith("deviantart "):
+                        elif cmd.startswith("deviantart ") and sender == clientMID:
                             start = time.time()
                             search = removeCmd("deviantart", text)
                             with _session as web:
@@ -2093,7 +2093,7 @@ async def clientBot(op):
                                     client.sendMessage(to,"[Image Result]\nGot image in %s seconds" %(elapsed_time))
                                 else:
                                     client.sendMessage(to, "Hasil pencarian tidak ditemukan")
-                        elif cmd.startswith("githubprofile "):
+                        elif cmd.startswith("githubprofile ") and sender == clientMID:
                             username = removeCmd("githubprofile", text)
                             r = _session.get("https://api.github.com/users/" + username)
                             data = r.text
@@ -2135,7 +2135,7 @@ async def clientBot(op):
                                 client.sendMessage(to,ret_)
                             elif "message" in profile:
                                 client.sendMessage(to,"User tidak di temukan")
-                        elif cmd.startswith("profileig "):
+                        elif cmd.startswith("profileig ") and sender == clientMID:
                             try:
                                 instagram = removeCmd("profileig", text)
                                 response = _session.get("https://www.instagram.com/"+instagram+"?__a=1")
@@ -2155,7 +2155,7 @@ async def clientBot(op):
                                 client.sendMessage(msg.to, str(text))
                             except Exception as e:
                                     client.sendMessage(msg.to, str(e))
-                        elif cmd.startswith("postig "):
+                        elif cmd.startswith("postig ") and sender == clientMID:
                             user = removeCmd("postig", text)
                             profile = "https://www.instagram.com/" + user
                             with _session as x:
@@ -2176,7 +2176,7 @@ async def clientBot(op):
                                             print (node['display_src'])
                                             client.sendImageWithURL(msg.to,node['display_src'])
                                     end_cursor = re.search(r'"end_cursor": "([^"]+)"', r.text).group(1)
-                        elif cmd.startswith("pictureig "):
+                        elif cmd.startswith("pictureig ") and sender == clientMID:
                             cari = removeCmd("pictureig", text)
                             try:
                                 respon = _session.get(cari+"?__a=1")
@@ -2185,7 +2185,7 @@ async def clientBot(op):
                                 client.sendImageWithURL(msg.to,ig_url)
                             except:
                                 client.sendMessage(msg.to,"Error")
-                        elif cmd.startswith("videoig "):
+                        elif cmd.startswith("videoig ") and sender == clientMID:
                             cari = removeCmd("videoig", text)
                             try:
                                 respon = _session.get(cari+"?__a=1")
@@ -2194,7 +2194,7 @@ async def clientBot(op):
                                 client.sendVideoWithURL(msg.to,ig_url)
                             except:
                                 client.sendMessage(msg.to,"Error")
-                        elif cmd.startswith("checkdate "):
+                        elif cmd.startswith("checkdate ") and sender == clientMID:
                             tanggal = removeCmd("checkdate", text)
                             r = _session.get('https://script.google.com/macros/exec?service=AKfycbw7gKzP-WYV2F5mc9RaR7yE3Ve1yN91Tjs91hp_jHSE02dSv9w&nama=ervan&tanggal='+tanggal)
                             data=r.text
@@ -2204,7 +2204,7 @@ async def clientBot(op):
                             ultah = data["data"]["ultah"]
                             zodiak = data["data"]["zodiak"]
                             client.sendMessage(msg.to,"╔══[ Date Of Birth Information ]\n"+"╠ Date Of Birth : "+lahir+"\n╠ Age : "+usia+"\n╠ Birthday : "+ultah+"\n╠ Zodiak : "+zodiak+"\n╚══[ Information Done ]")
-                        elif cmd == "kalender":
+                        elif cmd == "kalender" and sender == clientMID:
                             tz = pytz.timezone("Asia/Jakarta")
                             timeNow = datetime.now(tz=tz)
                             day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday"]
@@ -2218,7 +2218,7 @@ async def clientBot(op):
                                 if bln == str(k): bln = bulan[k-1]
                             readTime = hasil + ", " + timeNow.strftime('%d') + " - " + bln + " - " + timeNow.strftime('%Y') + "\nJam : " + timeNow.strftime('%H:%M:%S')
                             client.sendMessage(msg.to, readTime)
-                        elif cmd.startswith("checkpraytime "):
+                        elif cmd.startswith("checkpraytime ") and sender == clientMID:
                             location = removeCmd("checkpraytime", text)
                             with _session as web:
                                 web.headers["user-agent"] = random.choice(settings["userAgent"])
@@ -2240,7 +2240,7 @@ async def clientBot(op):
                                 else:
                                     ret_ = "[Prayer Schedule] Error : Location not found"
                                 client.sendMessage(msg.to, str(ret_))
-                        elif cmd.startswith("checkweather "):
+                        elif cmd.startswith("checkweather ") and sender == clientMID:
                             location = removeCmd("checkweather", text)
                             with _session as web:
                                 web.headers["user-agent"] = random.choice(settings["userAgent"])
@@ -2279,13 +2279,13 @@ async def clientBot(op):
                                 else:
                                     ret_ = "[Details Location] Error : Location not found"
                                 client.sendMessage(msg.to,str(ret_))
-                        elif cmd == "1cak":
+                        elif cmd == "1cak" and sender == clientMID:
                             r = _session.get('http://api-1cak.herokuapp.com/random')
                             data = r.text
                             data = json.loads(data)
                             img = data["img"]
                             client.sendMessage(to,"╔══[ 1cak Result ]\n╠ Title: %s\n╠ Url: %s\n╠ Id: %s\n╠ Votes: %s\n╠ NSFW: %s\n╚══[ Finish ]" %(str(data["title"].replace('FACEBOOK Comments', ' ')), str(data["url"]), str(data["id"]), str(data["votes"]), str(data["nsfw"])))
-                        elif cmd.startswith("checkwebsite "):
+                        elif cmd.startswith("checkwebsite ") and sender == clientMID:
                             text = removeCmd("checkwebsite", text)
                             cond = text.split("|")
                             web = cond[0]
@@ -2554,13 +2554,13 @@ async def clientBot(op):
                             if to in settings['changeGroupPicture']:
                             	settings['changeGroupPicture'].remove(to)
                             client.sendMessage(to, "Operasi dibatalkan")
-                        elif cmd == "changegrouppicture":
+                        elif cmd == "changegrouppicture" and sender == clientMID:
                             if msg.toType == 2:
                                 if to not in settings["changeGroupPicture"]:
                                     settings["changeGroupPicture"].append(to)
                                 client.sendMessage(to, "Silahkan kirim gambarnya")
 #--------------- ** Group Command ** ---------------#
-                        elif cmd == 'mention':
+                        elif cmd == 'mention' and sender == clientMID:
                             group = client.getGroup(to)
                             midMembers = [contact.mid for contact in group.members]
                             midSelect = len(midMembers)//20
@@ -2574,7 +2574,7 @@ async def clientBot(op):
                                     ret_ += "\n╠{}. @!\n\n\n".format(str(no))
                                 ret_ += "\n╚══[ Total {} Members]".format(str(len(dataMid)))
                                 sendMentionFer(to, ret_, dataMid)
-                        elif cmd == "lurking on":
+                        elif cmd == "lurking on" and sender == clientMID:
                             tz = pytz.timezone("Asia/Jakarta")
                             timeNow = datetime.now(tz=tz)
                             day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday"]
@@ -2598,7 +2598,7 @@ async def clientBot(op):
                                     client.sendMessage(to, "Set reading point:\n" + readTime)
                                 except:
                                     pass
-                        elif cmd == "lurking off":
+                        elif cmd == "lurking off" and sender == clientMID:
                             tz = pytz.timezone("Asia/Jakarta")
                             timeNow = datetime.now(tz=tz)
                             day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday"]
@@ -2622,7 +2622,7 @@ async def clientBot(op):
                                 client.sendMessage(to, "Delete reading point:\n" + readTime)
                             else:
                                 client.sendMessage(to, "Lurking belum diaktifkan ngapain di matikan?")
-                        elif cmd == "lurking reset":
+                        elif cmd == "lurking reset" and sender == clientMID:
                             tz = pytz.timezone("Asia/Jakarta")
                             timeNow = datetime.now(tz=tz)
                             day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday"]
@@ -2730,7 +2730,7 @@ async def clientBot(op):
                                 num=(num+1)
                             msgs+="\n╚══[ Total Friend : %i ]" % len(kontak)
                             client.sendMessage(to, msgs)
-                        elif cmd.startswith("friendinfo "):
+                        elif cmd.startswith("friendinfo ") and sender == clientMID:
                             number = removeCmd("friendinfo", text)
                             contactlist = client.getAllContactIds()
                             try:
@@ -2767,7 +2767,7 @@ async def clientBot(op):
                                 no += 1
                             ret_ += "\n╚══[ Total {} Groups ]".format(str(len(groups)))
                             client.sendMessage(to, str(ret_))
-                        elif cmd.startswith("memberlist "):
+                        elif cmd.startswith("memberlist ") and sender == clientMID:
                             number = removeCmd("memberlist", text)
                             groups = client.getGroupIdsJoined()
                             ret_ = ""
@@ -2782,7 +2782,7 @@ async def clientBot(op):
                                 client.sendMessage(to,"╔══[ Group Name ]\n╠ "+ str(G.name) + ret_ + "\n╚══[ Total : %i Members ]" % len(G.members))
                             except:
                                 pass
-                        elif cmd == "listpending":
+                        elif cmd == "listpending" and sender == clientMID:
                             if msg.toType == 2:
                                 group = client.getGroup(to)
                                 ret_ = "╔══[ Pending List ]"
@@ -2796,7 +2796,7 @@ async def clientBot(op):
                                         no += 1
                                     ret_ += "\n╚══[ Total {} ]".format(str(len(group.invitee)))
                                     client.sendMessage(to, str(ret_))
-                        elif cmd.startswith("pendinglist "):
+                        elif cmd.startswith("pendinglist ") and sender == clientMID:
                             if msg.toType == 2:
                                 number = removeCmd("pendinglist", text)
                                 groups = client.getGroupIdsJoined()
@@ -2835,7 +2835,7 @@ async def clientBot(op):
                                         client.cancelGroupInvitation(to, [inv])
                                         time.sleep(1)
                                     client.sendMessage(to, "Berhasil membersihkan {} pendingan".format(str(len(invitee))))
-                        elif cmd == "groupinfo":
+                        elif cmd == "groupinfo" and sender == clientMID:
                             if msg.toType != 2: return
                             group = client.getGroup(to)
                             try:
@@ -2866,7 +2866,7 @@ async def clientBot(op):
                             ret_ += "\n╚══[ Success ]"
                             client.sendImageWithURL(to, path)
                             client.sendMessage(to, str(ret_))
-                        elif cmd.startswith("groupinfo "):
+                        elif cmd.startswith("groupinfo ") and sender == clientMID:
                             number = removeCmd("groupinfo", text)
                             groups = client.getGroupIdsJoined()
                             ret_ = ""
@@ -2901,7 +2901,7 @@ async def clientBot(op):
                                 client.sendMessage(to, str(ret_))
                             except:
                                 pass
-                        elif cmd == "listmember":
+                        elif cmd == "listmember" and sender == clientMID:
                             if msg.toType != 2: return
                             kontak = client.getGroup(to)
                             group = kontak.members
@@ -2933,14 +2933,14 @@ async def clientBot(op):
                                     client.updateGroup(g)
                                 gurl = client.reissueGroupTicket(to)
                                 client.sendMessage(msg.to,"line://ti/g/" + gurl)
-                        elif cmd == "openqr":
+                        elif cmd == "openqr" and sender == clientMID:
                             if msg.toType == 2:
                                 group = client.getGroup(to)
                                 group.preventedJoinByTicket = False
                                 client.updateGroup(group)
                                 gurl = client.reissueGroupTicket(to)
                                 client.sendMessage(msg.to,"QR Group open\n\n" + "Link : line://ti/g/" + gurl)
-                        elif cmd == "closeqr":
+                        elif cmd == "closeqr" and sender == clientMID:
                             if msg.toType == 2:
                                 group = client.getGroup(to)
                                 group.preventedJoinByTicket = True
