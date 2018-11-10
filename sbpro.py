@@ -20,11 +20,15 @@ try:
 except ImportError:
     import urllib2
 
+#Login Via QR, Jika Mau Login Via Token Menjadi LINE("TOKEN KAMU")
+#Contoh : client = LINE("TOKEN_KAMU")
+#-------- feri24 = LINE("TOKEN_KAMU")
+
 botStart = time.time()
 client = LINE() #Login Via QR, Jika Mau Login Via Token Menjadi LINE("TOKEN KAMU")
 client.log("Auth Token : " + str(client.authToken))
 
-feri24 = LINE() #Login Via QR, Jika Mau Login Via Token Menjadi LINE("TOKEN KAMU")
+feri24 = LINE()
 feri24.log("Auth Token : " + str(feri24.authToken))
 
 
