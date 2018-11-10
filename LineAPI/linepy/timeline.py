@@ -108,7 +108,7 @@ class Timeline(Channel):
         params = {'homeId': mid, 'sourceType': 'TIMELINE'}
         url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v39/comment/create.json', params)
         data = {'commentText': text, 'activityExternalId': postId, 'actorId': mid}
-        r = self.server.postContent(url, data=data, headers=self.server.timelineHeaders)
+        r = self.server.postContent(url, data=json.dumps(data), headers=self.server.timelineHeaders)
         return r.json()
 
     @loggedIn
@@ -130,7 +130,7 @@ class Timeline(Channel):
         params = {'homeId': mid, 'sourceType': 'TIMELINE'}
         url = self.server.urlEncode(self.server.LINE_TIMELINE_API, '/v39/like/create.json', params)
         data = {'likeType': likeType, 'activityExternalId': postId, 'actorId': mid}
-        r = self.server.postContent(url, data=data, headers=self.server.timelineHeaders)
+        r = self.server.postContent(url, data=json.dumps(data), headers=self.server.timelineHeaders)
         return r.json()
 
     @loggedIn
