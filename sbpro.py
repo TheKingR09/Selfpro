@@ -1062,6 +1062,12 @@ async def clientBot(op):
     	                "flood": 0,
     	                "expire": False
                     }
+                if msg.contentType == 16:
+                    if msg.toType in (2,1,0):
+                        purl = msg.contentMetadata["postEndUrl"].split('userMid=')[1].split('&postId=')
+                        client.likePost(purl[0], purl[1], ([1001]))
+                        client.createComment(purl[0], purl[1], settings["commentPost"])
+                        client.sendReplyMessage(msg_id, to, "Sudah DiLike !!")
                 if msg.toType == 0 and settings["autoReply"] and sender != clientMID:
                     contact = client.getContact(sender)
                     rjct = ["auto", "ngetag"]
